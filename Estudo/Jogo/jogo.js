@@ -1,6 +1,8 @@
 
 var altura = 0
 var largura = 0 
+var vidas = 1
+var tempo = 10
 
 function ajustaTamanhoTela() {
      altura = window.innerHeight
@@ -10,11 +12,25 @@ function ajustaTamanhoTela() {
 
 ajustaTamanhoTela()
 
+var cronometro = setInterval(function(){
+
+     tempo--
+     document.getElementById('cronometro').innerHTML = tempo
+     
+}, 1000)
 
 function posicaoRandom() {
  
      if(document.getElementById('mosquito')){
           document.getElementById('mosquito').remove()
+
+          if(vidas > 3){
+               window.location.href = 'fim_de_jogo.html'
+          }else{
+               document.getElementById('v' + vidas).src = src="imagens/coracao_vazio.png"
+               vidas++
+          }
+
      }
 
     var posicaoX = Math.floor(Math.random() * largura) - 90
@@ -30,6 +46,9 @@ function posicaoRandom() {
     mosquito.style.top = posicaoY + 'px'
     mosquito.style.position = 'absolute'
     mosquito.id = 'mosquito'
+    mosquito.onclick = function(){
+     this.remove()
+    }
     
     
 
